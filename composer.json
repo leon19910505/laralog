@@ -1,5 +1,5 @@
 {
-    "name": "shallowman/laralog",
+    "name": "leon19910505/laralog",
     "description": "A middleware which could collect the log with json format of laravel application, including everyone request information。It's very friendly to harvest of filebeat",
     "keywords": [
         "laravel",
@@ -22,18 +22,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Shallowman\\Laralog\\": "src/"
+            "Leon19910505\\Laralog\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Shallowman\\Laralog\\Tests\\": "tests/"
+            "Leon19910505\\Laralog\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Shallowman\\Laralog\\ServiceProvider"
+                "Leon19910505\\Laralog\\ServiceProvider"
             ]
         }
     },

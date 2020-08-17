@@ -8,18 +8,18 @@
 - 提供了过滤请求中敏感信息的配置，可以过滤到请求参数中的敏感信息，例如，密码等
 ## 安装 
 1. 方式一  
-    - 添加 `shallowman/laralog` 包声明到工程项目的 `composer.json` 文件中
+    - 添加 `Leon19910505/laralog` 包声明到工程项目的 `composer.json` 文件中
     - 使用 `composer install` 命令安装
     
 2. 方式二  
     - 使用如下命令直接安装依赖
         ```sh
-        $ composer require shallowman/laralog
+        $ composer require Leon19910505/laralog
         ```
 3. 配置文件发布
     - 在项目目录下面运行如下命令，发布 `config` 资源文件
         ```sh
-        php artisan vendor:publish --provider="Shallowman\Laralog\ServiceProvider"
+        php artisan vendor:publish --provider="Leon19910505\Laralog\ServiceProvider"
         ```
 ## 配置
 ### 配置 `Laravel` `Http` 中间件
@@ -28,7 +28,7 @@
     ```php
     $middleware = [
         ...
-        \Shallowman\Laralog\Http\Middleware\CaptureRequestLifecycle::class,
+        \Leon19910505\Laralog\Http\Middleware\CaptureRequestLifecycle::class,
     ];
     ```
 
@@ -50,7 +50,7 @@
         // 日志存储路径，及日志文件命名
         'path'   => env('DAILY_LARALOG_STORAGE_PATH', storage_path('logs/laralog.log')),
         // 指定使用的日志格式化组件类
-        'tap'    => [\Shallowman\Laralog\Formatter\LaralogFormatter::class],
+        'tap'    => [\Leon19910505\Laralog\Formatter\LaralogFormatter::class],
         'level'  => 'info',
         // 日志文件保留天数
         'days'   => 7,

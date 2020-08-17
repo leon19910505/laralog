@@ -1,6 +1,6 @@
 <?php
 
-namespace Shallowman\Laralog;
+namespace Leon19910505\Laralog;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Shallowman\Laralog\Http\Middleware;
+namespace Leon19910505\Laralog\Http\Middleware;
 
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
-use Shallowman\Laralog\LaraLogger;
+use Leon19910505\Laralog\LaraLogger;
 use Symfony\Component\HttpFoundation\Response;
 
 class CaptureRequestLifecycle

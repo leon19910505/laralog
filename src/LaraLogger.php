@@ -1,6 +1,6 @@
 <?php
 
-namespace Shallowman\Laralog;
+namespace Leon19910505\Laralog;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Log\LogManager as LaravelLogManager;

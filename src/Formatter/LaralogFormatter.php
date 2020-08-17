@@ -1,6 +1,6 @@
 <?php
 
-namespace Shallowman\Laralog\Formatter;
+namespace Leon19910505\Laralog\Formatter;
 
 use Monolog\Logger;
 
