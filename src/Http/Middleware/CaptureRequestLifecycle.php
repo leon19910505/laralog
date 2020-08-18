@@ -216,19 +216,19 @@ class CaptureRequestLifecycle
         $this->setLogChannel();
         $this->setLevel();
         $this->setOs();
-//        $this->setPlatform();
-//        $this->setTag();
         $this->setUri($request->getUri());
         $this->setMethod($request->getMethod());
         $this->setIp(implode(',', $request->getClientIps()));
-//        $this->setVersion();
         $this->setParameters(collect($request->except(config('laralog.except')))->toJson());
+        $this->setTimestamp(now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.u\Z'));
+//        $this->setPlatform();
+//        $this->setTag();
+//        $this->setVersion();
 //        $this->setStart(Carbon::createFromTimestampMs($this->getStartMicroTimestamp($request) * 1000)->format('Y-m-d H:i:s.u'));
 //        $this->setEnd(now()->format('Y-m-d H:i.s.u'));
 //        $this->setPerformance(round(microtime(true) - $this->getStartMicroTimestamp($request), 6));
 //        $this->setResponse($response->getContent());
 //        $this->setMessage();
-        $this->setTimestamp(now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.u\Z'));
 //        $this->setExtra();
 //        $this->setHeaders(collect($request->headers->all())->toJson());
 //        $this->setHostname(gethostname() ?: 'Unknown Hostname');
@@ -250,13 +250,8 @@ class CaptureRequestLifecycle
             'uri'         => $this->uri,
             'method'      => $this->method,
             'ip'          => $this->ip,
-//            'platform'    => $this->platform,
-//            'version'     => $this->version,
             'os'          => $this->os,
             'level'       => $this->level,
-//            'tag'         => $this->tag,
-//            'start'       => $this->start,
-//            'end'         => $this->end,
             'parameters'  => $this->parameters,
 //            'performance' => $this->performance,
 //            'msg'         => $this->msg,
@@ -264,6 +259,11 @@ class CaptureRequestLifecycle
 //            'extra'       => $this->extra,
 //            'headers'     => $this->headers,
 //            'hostname'    => $this->hostname,
+//            'version'     => $this->version,
+//            'platform'    => $this->platform,
+//            'end'         => $this->end,
+//            'start'       => $this->start,
+//            'tag'         => $this->tag,
         ];
     }
 }

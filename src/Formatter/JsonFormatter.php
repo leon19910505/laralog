@@ -30,7 +30,16 @@ class JsonFormatter extends MonologJsonFormatter
         $context = $record['context'] ?? [];
         $record = $this->customize($record);
         $formatContext = $this->filterDuplicateKeys($context, array_keys($record));
-        return $this->toJson(array_merge($record, $formatContext)) . PHP_EOL;
+        $extra = config('laralog_extra', []);
+        $extraData = [];
+        foreach ($extra as $k => $v) {
+            if (is_callable($v)) {
+                $extraData[$k] = $v();
+            } else {
+                $extraData[$k] = $v;
+            }
+        }
+        return $this->toJson(array_merge($record, $extraData, $formatContext)) . PHP_EOL;
     }
 
     public function filterDuplicateKeys(array $context, array $keys): array
@@ -59,19 +68,19 @@ class JsonFormatter extends MonologJsonFormatter
             'uri' => '',
             'method' => '',
             'ip' => '',
-            'platform' => '',
-            'version' => '',
             'os' => '',
-            'tag' => '',
-            'start' => Carbon::createFromTimestampMs($this->getStartMicroTimestamp() * 1000)->format('Y-m-d H:i:s.u'),
-            'end' => now()->format('Y-m-d H:i:s.u'),
             'parameters' => '',
-            'performance' => round(microtime(true) - $this->getStartMicroTimestamp(), 6),
-            'response' => '',
-            'extra' => $this->handleExtra($record['context'] ?? []),
-            'msg' => $record['message'],
-            'headers' => '',
-            'hostname' => gethostname() ?: self::UNKNOWN_HOST,
+//            'performance' => round(microtime(true) - $this->getStartMicroTimestamp(), 6),
+//            'response' => '',
+//            'extra' => $this->handleExtra($record['context'] ?? []),
+//            'msg' => $record['message'],
+//            'headers' => '',
+//            'hostname' => gethostname() ?: self::UNKNOWN_HOST,
+//            'end' => now()->format('Y-m-d H:i:s.u'),
+//            'start' => Carbon::createFromTimestampMs($this->getStartMicroTimestamp() * 1000)->format('Y-m-d H:i:s.u'),
+//            'tag' => '',
+//            'version' => '',
+//            'platform' => '',
         ];
     }
 
