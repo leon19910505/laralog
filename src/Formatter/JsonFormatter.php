@@ -30,7 +30,7 @@ class JsonFormatter extends MonologJsonFormatter
         $context = $record['context'] ?? [];
         $record = $this->customize($record);
         $formatContext = $this->filterDuplicateKeys($context, array_keys($record));
-        $extra = config('laralog_extra', []);
+        $extra = config('laralog.extra', []);
         $extraData = [];
         foreach ($extra as $k => $v) {
             if (is_callable($v)) {
@@ -39,7 +39,7 @@ class JsonFormatter extends MonologJsonFormatter
                 $extraData[$k] = $v;
             }
         }
-        return $this->toJson(array_merge($record, $extraData, $formatContext)) . PHP_EOL;
+        return $this->toJson(collect(array_merge($record, $extraData, $formatContext))->except(config('laralog.exclude'))) . PHP_EOL;
     }
 
     public function filterDuplicateKeys(array $context, array $keys): array
@@ -70,17 +70,17 @@ class JsonFormatter extends MonologJsonFormatter
             'ip' => '',
             'os' => '',
             'parameters' => '',
-//            'performance' => round(microtime(true) - $this->getStartMicroTimestamp(), 6),
-//            'response' => '',
-//            'extra' => $this->handleExtra($record['context'] ?? []),
-//            'msg' => $record['message'],
-//            'headers' => '',
-//            'hostname' => gethostname() ?: self::UNKNOWN_HOST,
-//            'end' => now()->format('Y-m-d H:i:s.u'),
-//            'start' => Carbon::createFromTimestampMs($this->getStartMicroTimestamp() * 1000)->format('Y-m-d H:i:s.u'),
-//            'tag' => '',
-//            'version' => '',
-//            'platform' => '',
+            'performance' => round(microtime(true) - $this->getStartMicroTimestamp(), 6),
+            'response' => '',
+            'extra' => $this->handleExtra($record['context'] ?? []),
+            'msg' => $record['message'],
+            'headers' => '',
+            'hostname' => gethostname() ?: self::UNKNOWN_HOST,
+            'end' => now()->format('Y-m-d H:i:s.u'),
+            'start' => Carbon::createFromTimestampMs($this->getStartMicroTimestamp() * 1000)->format('Y-m-d H:i:s.u'),
+            'tag' => '',
+            'version' => '',
+            'platform' => '',
         ];
     }
 

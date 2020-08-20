@@ -221,17 +221,17 @@ class CaptureRequestLifecycle
         $this->setIp(implode(',', $request->getClientIps()));
         $this->setParameters(collect($request->except(config('laralog.except')))->toJson());
         $this->setTimestamp(now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.u\Z'));
-//        $this->setPlatform();
-//        $this->setTag();
-//        $this->setVersion();
-//        $this->setStart(Carbon::createFromTimestampMs($this->getStartMicroTimestamp($request) * 1000)->format('Y-m-d H:i:s.u'));
-//        $this->setEnd(now()->format('Y-m-d H:i.s.u'));
-//        $this->setPerformance(round(microtime(true) - $this->getStartMicroTimestamp($request), 6));
-//        $this->setResponse($response->getContent());
-//        $this->setMessage();
-//        $this->setExtra();
-//        $this->setHeaders(collect($request->headers->all())->toJson());
-//        $this->setHostname(gethostname() ?: 'Unknown Hostname');
+        $this->setPlatform();
+        $this->setTag();
+        $this->setVersion();
+        $this->setStart(Carbon::createFromTimestampMs($this->getStartMicroTimestamp($request) * 1000)->format('Y-m-d H:i:s.u'));
+        $this->setEnd(now()->format('Y-m-d H:i.s.u'));
+        $this->setPerformance(round(microtime(true) - $this->getStartMicroTimestamp($request), 6));
+        $this->setResponse($response->getContent());
+        $this->setMessage();
+        $this->setExtra();
+        $this->setHeaders(collect($request->headers->all())->toJson());
+        $this->setHostname(gethostname() ?: 'Unknown Hostname');
     }
 
     /**
@@ -253,17 +253,17 @@ class CaptureRequestLifecycle
             'os'          => $this->os,
             'level'       => $this->level,
             'parameters'  => $this->parameters,
-//            'performance' => $this->performance,
-//            'msg'         => $this->msg,
-//            'response'    => $this->response,
-//            'extra'       => $this->extra,
-//            'headers'     => $this->headers,
-//            'hostname'    => $this->hostname,
-//            'version'     => $this->version,
-//            'platform'    => $this->platform,
-//            'end'         => $this->end,
-//            'start'       => $this->start,
-//            'tag'         => $this->tag,
+            'performance' => $this->performance,
+            'msg'         => $this->msg,
+            'response'    => $this->response,
+            'extra'       => $this->extra,
+            'headers'     => $this->headers,
+            'hostname'    => $this->hostname,
+            'version'     => $this->version,
+            'platform'    => $this->platform,
+            'end'         => $this->end,
+            'start'       => $this->start,
+            'tag'         => $this->tag,
         ];
     }
 }
