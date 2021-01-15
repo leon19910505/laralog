@@ -33,22 +33,22 @@
     ```
 
 ### 配置写日志组件
-- 在 `.env` 配置中设置默认 `LOG_CHANNEL` 
+- 在 `.env` 配置中设置laralog专用的log channel `LOG_API` 
 
     ```dotenv
-    LOG_CHANNEL=daily
+    LOG_API=api
     ```
     
-- 在 `config/logging.php` 中，设置默认日志频道 `channel` 为 `daily` 的日志组件，添加如下配置声明 
+- 在 `config/logging.php` 中，设置laralog日志频道 `channel` 为 `api` 的日志组件，添加如下配置声明 
 
     ```php
-    'daily' => [
+    'api' => [
          // Monolog 提供的 driver,保留不变
         'driver' => 'daily',
         // channel 名称，要与数组键名保持一致
         'name'   => 'daily',
         // 日志存储路径，及日志文件命名
-        'path'   => env('DAILY_LARALOG_STORAGE_PATH', storage_path('logs/laralog.log')),
+        'path'   => env('DAILY_LARALOG_STORAGE_PATH', storage_path('logs/api.log')),
         // 指定使用的日志格式化组件类
         'tap'    => [\Leon19910505\Laralog\Formatter\LaralogFormatter::class],
         'level'  => 'info',
@@ -72,17 +72,45 @@
     ];
     ```
     
+- 配置过滤敏感信息的键值，如需新增过滤的敏感信息，在 `config/laralog.php` 中 `except` 键对应的数组中，增加待过滤的请求参数键值
+
+    ```php
+    return [
+    //except 是过滤request参数里不需要的字段
+    'except'  => [
+        'password',
+        'password_information',
+        'password_confirm',
+    ],
+    //exclude 是过滤返回结构里不要的字段
+    'exclude' => [
+        'os',
+        'performance',
+        'msg',
+        'response',
+        'extra',
+        'headers',
+        'hostname',
+        'version',
+        'platform',
+        'end',
+        'start',
+        'tag',
+    ],
+    // extra 是添加额外的字段（业务定制），这里是写入了token的用户信息
+    'extra'   => [
+        'auth-student' => function () {
+            return auth()->user()->id ?? '';
+        },
+        'auth-teacher' => function () {
+            return auth('teacher')->user()->id ?? '';
+        },
+    ],
+
+    ];
+
+    ```
+    
  - 配置日志存储路径，在 `.env` 文件中新增配置 `DAILY_LARALOG_STRORAGE_PATH=/path/to/laralog`
 
-## `Laravel` 开发时如何记日志
 
-- 日志记录保持不变，如下使用默认 `channel` 记录日志
-```php
-Log::info('log message', $context);
-```
-
-- 使用自定义 `channel` 写日志
-
-```php
-Log::channel('channel')->info('message', $context);
-```
